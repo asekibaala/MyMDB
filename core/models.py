@@ -1,9 +1,9 @@
 from django.db import models
 class Movie (models.Model):
-    NOT_RATED = 0,
-    RATED_G = 1,
-    RATED_PG = 2,
-    RATED_R = 3,
+    NOT_RATED = 'NR',
+    RATED_G = 'G',
+    RATED_PG = 'PG',
+    RATED_R = 'R',
     RATINGS = (
         (NOT_RATED,'NR - Not Rated'),
         (RATED_G,'G - General Audiences'),
