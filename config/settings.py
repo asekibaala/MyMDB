@@ -128,3 +128,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+from django.urls import path
+from . import views
+app_name = 'core'
+urlpatterns = [
+    path('movies', views.MovieListView.as_view(), name='MovieList'),
+    path('movies/<int:pk>/', views.MovieDetailView.as_view(), name='MovieDetail'),
+    path('movie', views.MovieListView.as_view()),  # Add this line
+    path('movie/<int:pk>/', views.MovieDetailView.as_view()),  # Add this line
+]
