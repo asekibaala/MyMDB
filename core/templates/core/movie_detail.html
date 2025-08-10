@@ -1,18 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <ul>
-            {% for movie in object_list %}
-                <li>
-                    {{ movie }}
-                </li>
-            {% empty %}
-                <li>No movies yet..</li>
-            {% endfor %}
-        </ul>
-        <p>
-            using https?
-            {{ request.is_secure | yesno:"yes,no" }}
-        </p>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{%% block title %}
+    {{ object.title }} - {{ block.super }}
+{% endblock %}
+
+{% block main %}
+
+<h1>{{ object }}</h1>
+<p class ="lead">
+    {{ object.plot }}
+</p>
+{% endblock %}
+
+{% block sidebar %}
+<div>
+This movie is rated:
+   <span class="badge badge-primary">{{ object.get_rating_display }}</span>    
+</div>
+{% endblock %}
+
+
