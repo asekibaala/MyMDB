@@ -30,7 +30,20 @@ class Movie (models.Model):
                                  null=True,
                                  blank=True,
                                  related_name='directed')
-    writers = models.ManyToManyField(to='Person', blank=True, related_name='writing_credits')
+    writers = models.ManyToManyField(to='Person', 
+                                     blank=True, 
+                                     related_name='writing_credits')
+    actors = models.ManyToManyField(to='Person',
+                                    through='Role',
+                                    blank=True,
+                                    related_name='acting_credits')
+class Role(models.Model):
+    movie = models.ForeignKey(to='Movie', on_delete=models.DO_NOTHING)
+    person = models.ForeignKey(to='Person', on_delete=models.DO_NOTHING)
+    name = models.CharField(max_length=140)
+
+    def __str__(self):
+        return "{} {} {}".format(self.movie_id, self.person_id, self.name)
 
 class Person(models.Model):
     first_name = models.CharField(max_length=140)
