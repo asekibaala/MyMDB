@@ -51,6 +51,8 @@ class Person(models.Model):
     born = models.DateField()
     died = models.DateField(blank=True, null=True)
 
+    objects = PersonManager()
+
     class Meta:
         ordering = ['last_name', 'first_name']
         
@@ -59,3 +61,12 @@ class Person(models.Model):
         if self.died:
             return '{}, {} ({}-{})'.format(self.last_name, self.first_name, self.born.year, self.died.year)
         return '{}, {} ({})'.format(self.last_name, self.first_name, self.born.year)
+
+class PersonManager(models.Manager):
+    def all_with_prefetch_movies(self):
+        qs = self.get_queryset()
+        return qs.prefetch_related(
+            'directed',
+            'writing_credits',
+            'acting_credits__movie'
+        )
