@@ -25,6 +25,12 @@ class Movie (models.Model):
     def __str__(self):
         return '{} ({})'.format(self.title, self.year)
 
+    director = models.ForeignKey(to='Person', 
+                                 on_delete=models.SET_NULL, 
+                                 null=True,
+                                 blank=True,
+                                 related_name='directed')
+
 class Person(models.Model):
     first_name = models.CharField(max_length=140)
     last_name = models.CharField(max_length=140)
