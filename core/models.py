@@ -30,6 +30,7 @@ class Movie (models.Model):
                                  null=True,
                                  blank=True,
                                  related_name='directed')
+    writers = models.ManyToManyField(to='Person', blank=True, related_name='writing_credits')
 
 class Person(models.Model):
     first_name = models.CharField(max_length=140)
