@@ -2,7 +2,8 @@ from django.views.generic import (ListView, DetailView)
 from core.models import Movie
 
 class MovieDetailView(DetailView):
-    model = Movie
+    #model = Movie
+    queryset = Movie.objects.all_with_related_persons()
 
 class MovieListView(ListView):
     model = Movie

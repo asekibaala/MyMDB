@@ -17,6 +17,8 @@ class Movie (models.Model):
     runtime = models.PositiveIntegerField()
     website = models.URLField(blank=True)
 
+    objects = MovieManager()
+
     class Meta:
         ordering = ['-year', 'title']
     
@@ -37,6 +39,7 @@ class Movie (models.Model):
                                     through='Role',
                                     blank=True,
                                     related_name='acting_credits')
+    
 class Role(models.Model):
     movie = models.ForeignKey(to='Movie', on_delete=models.DO_NOTHING)
     person = models.ForeignKey(to='Person', on_delete=models.DO_NOTHING)
@@ -70,3 +73,8 @@ class PersonManager(models.Manager):
             'writing_credits',
             'acting_credits__movie'
         )
+
+class MovieManager(models.Manager):
+    def all_with_related_persons(self):
+        qs = self.get_queryset()
+        return qs.select_related('director').prefetch_related('writers', 'actors')
