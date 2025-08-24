@@ -7,3 +7,6 @@ class MovieDetailView(DetailView):
 class MovieListView(ListView):
     model = Movie
     paginate_by = 10
+
+class PersonDetailView(DetailView):
+    queryset = Person.objects.all_with_prefetch_movies()
