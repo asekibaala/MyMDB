@@ -20,13 +20,13 @@ class MovieListPaginationTest(TestCase):
                 runtime=100,
             )
     def testFirstPage(self):
-        request = RequestFactory().get(reverse('core:movie_list'))
+        request = RequestFactory().get(reverse('core:MovieList'))
         response = MovieListView.as_view()(request)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context_data['is_paginated'])
         self.assertInHTML(
             self.Active_PAGINATION_HTML.format(
-                reverse('core:movie_list'),
+                reverse('core:MovieList'),
                 1,
                 1,
             ),
