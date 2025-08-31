@@ -1,7 +1,19 @@
 from django.db import models
 #from core.models import MovieManager
+class PersonManager(models.Manager):
+    def all_with_prefetch_movies(self):
+        qs = self.get_queryset()
+        return qs.prefetch_related(
+            'directed',
+            'writing_credits',
+            'acting_credits__movie'
+        )
+
 class MovieManager(models.Manager):
-    pass
+    def all_with_related_persons(self):
+        qs = self.get_queryset()
+        return qs.select_related('director').prefetch_related('writers', 'actors')
+    
 class Movie (models.Model):
     NOT_RATED = 0
     RATED_G = 1
@@ -70,16 +82,5 @@ class Person(models.Model):
             return '{}, {} ({}-{})'.format(self.last_name, self.first_name, self.born.year, self.died.year)
         return '{}, {} ({})'.format(self.last_name, self.first_name, self.born.year)
 
-class PersonManager(models.Manager):
-    def all_with_prefetch_movies(self):
-        qs = self.get_queryset()
-        return qs.prefetch_related(
-            'directed',
-            'writing_credits',
-            'acting_credits__movie'
-        )
 
-class MovieManager(models.Manager):
-    def all_with_related_persons(self):
-        qs = self.get_queryset()
-        return qs.select_related('director').prefetch_related('writers', 'actors')
+
