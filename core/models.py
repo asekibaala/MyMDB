@@ -1,5 +1,7 @@
 from django.db import models
 #from core.models import MovieManager
+class MovieManager(models.Manager):
+    pass
 class Movie (models.Model):
     NOT_RATED = 0
     RATED_G = 1
@@ -17,6 +19,7 @@ class Movie (models.Model):
     rating = models.IntegerField(choices=RATINGS, default=NOT_RATED)
     runtime = models.PositiveIntegerField()
     website = models.URLField(blank=True)
+
     objects = MovieManager()
 
     
