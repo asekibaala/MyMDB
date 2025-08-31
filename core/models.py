@@ -1,4 +1,5 @@
 from django.db import models
+from core.models import MovieManager
 class Movie (models.Model):
     NOT_RATED = 0
     RATED_G = 1
