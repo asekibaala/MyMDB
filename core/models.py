@@ -1,4 +1,6 @@
 from django.db import models
+
+from config import settings
 #from core.models import MovieManager
 class PersonManager(models.Manager):
     def all_with_prefetch_movies(self):
@@ -83,4 +85,18 @@ class Person(models.Model):
         return '{}, {} ({})'.format(self.last_name, self.first_name, self.born.year)
 
 
+class Vote(models.Model):
+    UP = 1
+    DOWN = -1
+    VALUE_CHOICES = (
+        (UP, 'Upvote'),
+        (DOWN, 'Downvote'),
+    )
 
+    value = models.SmallIntegerField(choices=VALUE_CHOICES)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
+    voted_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'movie')
