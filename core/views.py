@@ -1,5 +1,6 @@
 from django.views.generic import (ListView, DetailView)
-from core.models import Movie
+from core.models import Movie,Person
+
 
 class MovieDetailView(DetailView):
     #model = Movie
