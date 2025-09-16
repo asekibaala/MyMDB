@@ -8,7 +8,9 @@ from django.views.generic import CreateView, UpdateView
 
 class MovieDetailView(DetailView):
     #model = Movie
-    queryset = Movie.objects.all_with_related_persons()
+    queryset = Movie.objects.all_with_related_persons_and_score()
+    #queryset = Movie.objects.all_with_related_persons()
+    #queryset = Movie.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
