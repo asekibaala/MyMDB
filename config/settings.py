@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-LOGIN_REDIRECT_URL = 'core:MovieList'        
+LOGIN_REDIRECT_URL = 'user:login'        
 
 TEMPLATES = [
     {
