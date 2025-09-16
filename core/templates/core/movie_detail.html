@@ -19,6 +19,17 @@
 This movie is rated:
    <span class="badge badge-primary">{{ object.get_rating_display }}</span>    
 </div>
+<div>
+    {% if vote_form %   %}
+        <form method="post" action="{{ vote_form_url }}">
+            {% csrf_token %}
+            {{ vote_form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit Vote</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to vote for this movie.</p>
+    {% endif %}
+</div>
 {% endblock %}
 
 
