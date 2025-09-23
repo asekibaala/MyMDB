@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.db.models import sum
+from django.db.models import Sum
 from uuid import uuid4
 
 #from core.models import MovieManager
@@ -19,7 +19,7 @@ class MovieManager(models.Manager):
         return qs.select_related('director').prefetch_related('writers', 'actors')
     def all_with_related_persons_and_score(self):
         qs = self.all_with_related_persons()
-        qs = qs.annotate(score=sum('vote__value'))
+        qs = qs.annotate(score=Sum('vote__value'))  # <-- Use Sum here
         return qs
     
 class Movie (models.Model):
