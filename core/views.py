@@ -2,7 +2,7 @@ from django.views.generic import (ListView, DetailView)
 from core.models import Movie,Person, Vote,VoteManager
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from core.forms import VoteForm
+#from core.forms import VoteForm
 from django.views.generic import CreateView, UpdateView 
 from django.urls import reverse
 
