@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.aggregates import sum
+from django.db.models import sum
 from uuid import uuid4
 
 #from core.models import MovieManager
