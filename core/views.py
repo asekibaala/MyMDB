@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from core.forms import VoteForm
 from django.views.generic import CreateView, UpdateView 
+from django.urls import reverse
 
 class MovieDetailView(DetailView):
     #model = Movie
