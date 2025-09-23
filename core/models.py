@@ -35,7 +35,7 @@ class Movie (models.Model):
     
     title = models.CharField(max_length=140)
     plot = models.TextField()
-    year = models.PositiveBigIntegerField() 
+    year = models.PositiveIntegerField() 
     rating = models.IntegerField(choices=RATINGS, default=NOT_RATED)
     runtime = models.PositiveIntegerField()
     website = models.URLField(blank=True)
