@@ -89,7 +89,3 @@ class MovieImageUploadView(LoginRequiredMixin, CreateView):
         movie_id = self.kwargs['movie_id']
         movie_detail_url = reverse('core:MovieDetail', kwargs={'pk': movie_id})
         return movie_detail_url
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
