@@ -5,10 +5,20 @@
 {% endblock %}
 
 {% block content %}
+<div class="col">
 <h1>{{ object.title }}</h1>
 <p class="lead">
     {{ object.plot }}
 </p>
+</div>
+<ul class="movie-image list-inline">
+    {% for i in object.movieimage_set.all %}
+        <li class="list-inline-item">
+            <img src="{{ i.image.url }}" alt="{{ object.title }}" class="img-thumbnail">
+        </li>
+    {% endfor %}
+</ul>
+<<p>Directed by {{ object.director }}</p>
 <p><strong>Year:</strong> {{ object.year }}</p>
 <p><strong>Runtime:</strong> {{ object.runtime }} minutes</p>
 <p><strong>Website:</strong> <a href="{{ object.website }}">{{ object.website }}</a></p>
@@ -24,6 +34,16 @@ This movie is rated:
     Score: {{ object.score|default_if_none:"TBD" }}
     </h2>
 </div>
+{% if image_form % }
+<div>
+    <h3>Upload an image</h3>
+    <form method="post" action="{{ image_form_url }}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ image_form.as_p }}
+        <button type="submit" class="btn btn-primary">Upload Image</button>
+    </form>
+</div>
+{ % endif %}
 <div>
     {% if vote_form %   %}
         <form method="post" action="{{ vote_form_url }}">
