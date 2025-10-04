@@ -72,3 +72,24 @@ class UpdateVote(LoginRequiredMixin, UpdateView):
         movie_id = self.kwargs['movie_id']
         movie_detail_url = reverse('core:MovieDetail', kwargs={'pk': movie_id})
         return redirect(movie_detail_url)
+class MovieImageUploadView(LoginRequiredMixin, CreateView):
+    form_class = MovieImageForm
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['movie'] = Movie.objects.get(id=self.kwargs['movie_id'])
+        initial['user'] = self.request.user
+        return initial
+    def render_to_response(self, context, **response_kwargs):
+        movie_id  = self.kwargs['movie_id']
+        movie_detail_url = reverse('core:MovieDetail', kwargs={'pk': movie_id})
+        return redirect(to=movie_detail_url)
+
+    def get_success_url(self):
+        movie_id = self.kwargs['movie_id']
+        movie_detail_url = reverse('core:MovieDetail', kwargs={'pk': movie_id})
+        return movie_detail_url
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
