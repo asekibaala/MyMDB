@@ -15,13 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from config import settings
 import core.urls
+from user import views
 import user.urls
+from django.conf.urls.static import static
+
+MEDIA_FILE_PATHS = static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+)
 
 urlpatterns = [
     path('admin/',admin.site.urls),
     path('user/', include(user.urls, namespace='user')), 
     path('', include('core.urls', namespace='core')),
-           
+    path('movie/<int:movie_id>/vote', views.CreateVote.as_view(), name='CreateVote'),
+    path('movie/<int:movie_id>/vote/<int:pk>', views.UpdateVote.as_view(), name='UpdateVote'),
 
-]
+] + MEDIA_FILE_PATHS
