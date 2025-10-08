@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models import Sum
 from uuid import uuid4
+from django.db.models.aggregates import (Sum)
 
 #from core.models import MovieManager
 class PersonManager(models.Manager):
@@ -21,7 +22,14 @@ class MovieManager(models.Manager):
         qs = self.all_with_related_persons()
         qs = qs.annotate(score=Sum('vote__value'))  # <-- Use Sum here
         return qs
-    
+    def top_movies(self, limit=10):
+        qs = self.get_queryset()
+        qs = qs.annotate(vote_score=Sum('vote__value')) # <-- Use Sum here
+        qs = qs.exclude(vote_score__isnull=True     ) # Exclude movies with no votes
+        qs = qs.order_by('-vote_score')
+        qs = qs[:limit]  # Limit the results
+        return qs
+
 class Movie (models.Model):
     NOT_RATED = 0
     RATED_G = 1
