@@ -9,4 +9,5 @@ urlpatterns = [
     path('movie/<int:pk>/', views.MovieDetailView.as_view()),  # <-- Add this line
     #path('404/', views.Custom404View.as_view(), name='Custom404'),
     path('movie/<int:movie_id>/image/upload', views.MovieImageUploadView.as_view(), name='MovieImageUpload'),  # New URL pattern for image upload
+    path('movies/top/', views.TopMoviesView.as_view(), name='TopMovies'),  # New URL pattern for top movies
 ]
