@@ -93,3 +93,5 @@ class MovieImageUploadView(LoginRequiredMixin, CreateView):
 class TopMoviesView(ListView):  
     template_name = 'core/top_movies_list.html'
     queryset = Movie.objects.top_movies(limit=10)
+
+    
