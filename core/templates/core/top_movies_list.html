@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
+{% load cache %}
 
 {% block title %}
   Top Movies
 {% endblock %}
 {% block content %}
   <h1>Top 10 Movies</h1>
+  {% cache 300 top 10 %}
   <ol>
     {% for movie in object_list %}
       <li>
@@ -12,4 +14,5 @@
       </li>
     {% endfor %}
     </ol>
+  {% endcache %}
 {% endblock %}
