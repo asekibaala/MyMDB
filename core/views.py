@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from .forms import MovieImageForm, VoteForm
 from django.views.generic import CreateView, UpdateView 
 from django.urls import reverse
-
+from core.mixins import CachePageVaryOnCookiesMixin
 class MovieDetailView(DetailView):
     #model = Movie
     queryset = Movie.objects.all_with_related_persons_and_score()
@@ -32,7 +32,7 @@ class MovieDetailView(DetailView):
         if self.request.user.is_authenticated:
             return MovieImageForm()
         return None
-class MovieListView(ListView):
+class MovieListView(CachePageVaryOnCookiesMixin, ListView):
     model = Movie
     paginate_by = 10
 
