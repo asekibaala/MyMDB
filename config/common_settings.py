@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r_2adfohiiwwu03e&k+jx^x0zs=_#dyg&)fyps!xw@c1+ot&q%'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -80,14 +80,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+#DATABASES = {
+  #  'default': {
+   #     'ENGINE': 'django.db.backends.postgresql',
+   #     'NAME': 'mymdb',
+   #     'USER': 'mymdb',
+   #     'PASSWORD': 'development',
+   #     'HOST': '127.0.0.1',
+   #     'PORT': '5432',
+
+   # }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mymdb',
-        'USER': 'mymdb',
-        'PASSWORD': 'development',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql'
 
     }
 }
@@ -110,13 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'default-localmemcache',
-        'TIMEOUT': 5,
-    }
-}
+
 
 CSRF_USE_SESSIONS = True
 
@@ -142,3 +143,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/uploaded/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '../media_root')
+STATIC_ROOT = os.path.join(BASE_DIR, 'gathered_static_files')
