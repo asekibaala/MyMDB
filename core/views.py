@@ -6,6 +6,9 @@ from .forms import MovieImageForm, VoteForm
 from django.views.generic import CreateView, UpdateView 
 from django.urls import reverse
 from core.mixins import CachePageVaryOnCookiesMixin
+import django
+from django.core.cache import caches
+
 class MovieDetailView(DetailView):
     #model = Movie
     queryset = Movie.objects.all_with_related_persons_and_score()
@@ -94,4 +97,14 @@ class TopMoviesView(ListView):
     template_name = 'core/top_movies_list.html'
     queryset = Movie.objects.top_movies(limit=10)
 
-    
+    def get_queryset(self):
+        limit = 10
+        key = 'top_movies_{}'.format(limit)
+        cached_qs = caches['default'].get(key)
+        if cached_qs:
+            same_django = cached_qs._django_version == django.get_version()
+            if same_django:
+                return cached_qs
+        qs = Movie.objects.top_movies(limit=limit)  
+        caches['default'].set(key, qs, timeout=300)
+        return qs
