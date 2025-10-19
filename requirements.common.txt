@@ -1,0 +1,6 @@
+Django==2.1
+psycopg2-binary==2.9.10
+pytz==2025.2
+Pillow==10.3.0
+-r requirements.common.txt
+django-debug-toolbar==3.2.4
