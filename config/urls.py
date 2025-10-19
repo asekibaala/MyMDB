@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from config import settings
+from config import common_settings
 import core.urls
 from user import views
 import user.urls
 from django.conf.urls.static import static
 
 MEDIA_FILE_PATHS = static(
-    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    common_settings.MEDIA_URL, document_root=common_settings.MEDIA_ROOT
 )
 
 urlpatterns = [
