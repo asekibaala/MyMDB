@@ -28,3 +28,5 @@ RUN chown www-data /var/log/uwsgi/mymdb.log
  
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 EXPOSE 80  
+
+
